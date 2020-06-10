@@ -8,7 +8,16 @@
   [:li.list-group-item.d-flex.justify-content-between.lh-condensed
    [:div
     [:h6.my-0 (:name game)]
-    [:small.text-muted (:deck game)]]
+    [:small.text-muted (:deck game)]
+    [:form
+     {:action "/game-remove"
+      :method "post"}
+     (anti-forgery-field)
+     [:input {:name "name", :type "hidden", :value (:name game)}]
+     [:button.btn.btn-sm.btn-outline-primary
+      {:type "submit"}
+      "Reject"]]
+    ]
    [:span.text-muted (format "$%s" (:price game))]])
 
 (defn total-price

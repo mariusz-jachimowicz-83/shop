@@ -8,6 +8,7 @@
 (defprotocol BasketService
   (details [this])
   (add     [this game])
+  (reject  [this game-name])
   (pay     [this]))
 
 (defrecord BasketBoundary [host key logger]
@@ -17,6 +18,10 @@
     @state)
   (add [_ game]
     (swap! state conj game))
+  (reject [_ game-name]
+    (->> @state
+         (remove #(= game-name (:name %)))
+         (reset! state)))
   (pay [_]
     (reset! state [])))
 

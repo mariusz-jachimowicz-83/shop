@@ -4,25 +4,22 @@
    [shop.views.template    :refer [page]]))
 
 (defn card-img
-  [g]
+  [game]
   [:img.card-img-top
    {:data-holder-rendered "true"
-    :src (-> g :image :small_url)
+    :src (-> game :image :small_url)
     :style "height: 225px; width: 100%; display: block;"}])
 
 (defn card-title
-  [g]
-  [:h5.card-title (:name g)])
+  [game]
+  [:h5.card-title (:name game)])
 
 (defn card-description
-  [g]
-  [:p.card-text (:deck g)])
+  [game]
+  [:p.card-text (:deck game)])
 
 (defn btn-rent
   [game]
-  #_[:button.btn.btn-sm.btn-outline-primary
-   {:type "button"}
-   "Rent"]
   [:form
    {:action "/game-add"
     :method "post"}
@@ -32,11 +29,7 @@
    [:input {:name "price", :type "hidden", :value (:price game)}]
    [:button.btn.btn-sm.btn-outline-primary
     {:type "submit"}
-    "Rent"]
-   #_[:button.btn.btn-outline-success.my-2.my-sm-0
-    {:type "submit"}
-    "Search"]]
-  )
+    "Rent"]])
 
 (defn btn-details
   []

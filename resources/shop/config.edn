@@ -11,6 +11,9 @@
             [:post "/game-add" {game-form :form-params}]
             [:shop.handler/game-add game-form]
 
+            [:post "/game-remove" {game-form :form-params}]
+            [:shop.handler/game-remove game-form]
+
             [:get "/checkout"]
             [:shop.handler/basket]
 
@@ -31,6 +34,9 @@
    :basket #ig/ref :shop.boundaries/basket}
 
   :shop.handler/game-add
+  {:basket #ig/ref :shop.boundaries/basket}
+
+  :shop.handler/game-remove
   {:basket #ig/ref :shop.boundaries/basket}
 
   :shop.handler/basket
