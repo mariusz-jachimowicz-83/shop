@@ -1,0 +1,62 @@
+{:duct.profile/base
+ {:duct.core/project-ns shop
+
+  :duct.router/ataraxy
+  {:routes {[:get  "/"]
+            [:shop.handler/index]
+
+            [:post "/search" {search-form :form-params query-params :query-params}]
+            [:shop.handler/search search-form query-params]
+
+            [:post "/game-add" {game-form :form-params}]
+            [:shop.handler/game-add game-form]
+
+            [:get "/checkout"]
+            [:shop.handler/basket]
+
+            [:post "/rent" {rent-form :form-params}]
+            [:shop.handler/rent rent-form]
+
+            [:get "/thankyou"]
+            [:shop.handler/thankyou]}}
+
+  :shop.handler/index
+  {:db     #ig/ref :duct.database/sql
+   :api    #ig/ref :shop.boundaries/api
+   :basket #ig/ref :shop.boundaries/basket}
+
+  :shop.handler/search
+  {:db     #ig/ref :duct.database/sql
+   :api    #ig/ref :shop.boundaries/api
+   :basket #ig/ref :shop.boundaries/basket}
+
+  :shop.handler/game-add
+  {:basket #ig/ref :shop.boundaries/basket}
+
+  :shop.handler/basket
+  {:basket #ig/ref :shop.boundaries/basket}
+
+  :shop.handler/rent
+  {:basket #ig/ref :shop.boundaries/basket}
+
+  :shop.handler/thankyou {}
+
+  :shop.boundaries/api
+  {:logger #ig/ref :duct/logger
+   :key  #duct/env ["API_KEY" Str]
+   :host "https://www.giantbomb.com/api"}
+
+  :shop.boundaries/basket
+  {:logger #ig/ref :duct/logger}
+ }
+
+
+ :duct.profile/dev   #duct/include "dev"
+ :duct.profile/local #duct/include "local"
+ :duct.profile/prod  {}
+
+ :duct.module/logging {}
+ :duct.module.web/site
+ {}
+ :duct.module/sql
+ {}}
